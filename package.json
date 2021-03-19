@@ -2,9 +2,11 @@
   "name": "thunder-imports",
   "version": "1.0.0",
   "description": "Thunder Imports Project",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "tsc",
     "build": "tsc",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./"
@@ -20,6 +22,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/uuid": "^8.3.0",
     "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "uuid": "^8.3.2"
   }
 }
