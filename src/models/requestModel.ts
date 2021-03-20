@@ -12,6 +12,11 @@ export type BasicAuth = {
     password: string
 }
 
+export type GraphqlBody = {
+    query: string,
+    variables: string | undefined
+}
+
 export type OAuth2 = {
     accessToken: string,
     tokenName: string,
@@ -28,7 +33,8 @@ export type OAuth2 = {
 export type RequestBody = {
     type: "none" | "text" | "json" | "xml" | "formdata" | "formencoded" | "graphql",
     raw: string | undefined,
-    form: KeyValue[] | undefined
+    form: KeyValue[] | undefined,
+    graphql: GraphqlBody | undefined
 }
 
 export type Authentication = {

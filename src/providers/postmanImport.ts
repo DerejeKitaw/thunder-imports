@@ -1,6 +1,6 @@
 import DataProvider from "./dataProvider";
 import { CollectionImportModel, EnvironmentImportModel } from "../models/importModels";
-import { KeyValue, OAuth2, RequestModel } from "../models/requestModel";
+import { KeyValue, OAuth2, RequestBody, RequestModel } from "../models/requestModel";
 
 export default class PostmanImport implements DataProvider {
     isMatchEnvironment(json: any): boolean {
@@ -82,7 +82,7 @@ export default class PostmanImport implements DataProvider {
         }
 
         if (request.body) {
-            tcRequest.body = { type: "text", raw: undefined, form: undefined };
+            tcRequest.body = {} as RequestBody;
             if (request.body.mode === "urlencoded") {
                 tcRequest.body.form = [];
                 tcRequest.body.type = "formencoded";
@@ -102,7 +102,11 @@ export default class PostmanImport implements DataProvider {
                 }
 
                 tcRequest.body.raw = request.body.raw;
-            } else {
+            } else if (request.body.mode === "graphql") {
+                tcRequest.body.type = "graphql";
+                tcRequest.body.graphql = request.body.graphql;
+            }
+            else {
                 tcRequest.body = undefined;
             }
         }
