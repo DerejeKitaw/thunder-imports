@@ -1,5 +1,3 @@
-export const defaultCollection = "history";
-
 export type KeyValue = {
     name: string,
     value: string
