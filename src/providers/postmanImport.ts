@@ -1,6 +1,7 @@
 import DataProvider from "./dataProvider";
-import { CollectionImportModel, EnvironmentImportModel } from "../models/importModels";
-import { KeyValue, OAuth2, RequestBody, RequestModel } from "../models/requestModel";
+import { CollectionImportModel } from "../models/collectionImportModel";
+import { KeyValue, OAuth2, RequestBody, RequestImportModel } from "../models/requestImportModel";
+import { EnvironmentImportModel } from "..";
 
 export default class PostmanImport implements DataProvider {
     isMatchEnvironment(json: any): boolean {
@@ -40,14 +41,14 @@ export default class PostmanImport implements DataProvider {
         var data = new CollectionImportModel();
         data.name = json.info.name;
 
-        var tcRequests: RequestModel[] = [];
-        this.parseData(json, tcRequests, json.info.name);
+        var tcRequests: RequestImportModel[] = [];
+        this.parseData(json, tcRequests);
 
         data.requests = tcRequests;
         return data;
     }
 
-    private parseData(jsonData: any, tcRequests: RequestModel[], colName: string) {
+    private parseData(jsonData: any, tcRequests: RequestImportModel[]) {
         let item = jsonData.item;
         if (item && item.length > 0) {
             // console.log("postman collection: ", item)
@@ -55,12 +56,11 @@ export default class PostmanImport implements DataProvider {
             for (let colItem of item) {
                 if (colItem.request) {
                     var req = this.parseRequest(colItem);
-                    req.colName = colName
                     tcRequests.push(req);
 
                 } else if (colItem.item) {
 
-                    this.parseData(colItem, tcRequests, colName);
+                    this.parseData(colItem, tcRequests);
                 }
             }
         }
@@ -69,7 +69,7 @@ export default class PostmanImport implements DataProvider {
     private parseRequest(requestItem: any) {
         let { name, request } = requestItem;
         // console.log("postman req: ", requestItem)
-        let tcRequest = new RequestModel();
+        let tcRequest = new RequestImportModel();
 
         tcRequest.name = name
         tcRequest.url = request.url.raw;

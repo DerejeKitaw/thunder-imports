@@ -1,5 +1,6 @@
 import DataProvider from "./dataProvider";
-import { CollectionImportModel, EnvironmentImportModel } from "../models/importModels";
+import { CollectionImportModel } from "../models/collectionImportModel";
+import { EnvironmentImportModel } from "..";
 
 export default class ThunderImport implements DataProvider {
     isMatchCollection(json: any): boolean {

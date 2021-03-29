@@ -1,2 +1,3 @@
 export { ImportProcessor } from "./importProcessor"
-export { CollectionImportModel, EnvironmentImportModel } from "./models/importModels";
+export { CollectionImportModel } from "./models/collectionImportModel";
+export { EnvironmentImportModel } from "./models/EnvironmentImportModel"

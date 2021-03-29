@@ -1,6 +1,7 @@
 import DataProvider from "./providers/dataProvider";
-import { CollectionImportModel, EnvironmentImportModel } from "./models/importModels";
+import { CollectionImportModel } from "./models/collectionImportModel";
 import RegisterProviders from "./registerProviders";
+import { EnvironmentImportModel } from ".";
 
 export class ImportProcessor {
     private _imports: DataProvider[];

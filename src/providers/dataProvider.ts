@@ -1,4 +1,5 @@
-import { CollectionImportModel, EnvironmentImportModel } from "../models/importModels";
+import { EnvironmentImportModel } from "..";
+import { CollectionImportModel } from "../models/collectionImportModel";
 
 export default interface DataProvider {
     isMatchCollection(json: any): boolean;

@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 export const defaultCollection = "history";
 
 export type KeyValue = {
@@ -44,41 +42,12 @@ export type Authentication = {
     oauth2: OAuth2 | undefined
 }
 
-export class RequestModel {
-    /**
-     * Collection Name
-     */
-    public colName: string;
-
-    /**
-     * collection Id
-     */
-    public colId: string;
+export class RequestImportModel {
     public method: string = "";
     public url: string = "";
     public name: string = "";
-    public id: string;
-    public _id: string;
-    public modified: string;
     public headers: KeyValue[] = [];
     public body: RequestBody | undefined;
     public auth: Authentication | undefined;
     public tests: any[] | undefined;
-
-    setId(reqId: string) {
-        this.id = this._id = reqId;
-    }
-
-    /**
-     * request model object
-     * @param url request url
-     * @param method http method
-     */
-    public constructor() {
-        this.colName = defaultCollection;
-        this.colId = defaultCollection;
-        this.modified = new Date().toISOString();
-        let uid = uuidv4();
-        this.id = this._id = uid;
-    }
 }
