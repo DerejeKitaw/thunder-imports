@@ -1,6 +1,6 @@
 {
   "name": "@thunderclient/thunder-imports",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Thunder Imports Project",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
