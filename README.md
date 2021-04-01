@@ -6,4 +6,5 @@ The project is used to import Collection data to ThunderClient.
 * Thunder Client
 * Postman
 
-if you need support for other file formats please submit PR.
+### Contribute
+* if you need support for other file formats please submit PR.
