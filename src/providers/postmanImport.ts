@@ -71,8 +71,9 @@ export default class PostmanImport implements DataProvider {
         // console.log("postman req: ", requestItem)
         let tcRequest = new RequestImportModel();
 
-        tcRequest.name = name
-        tcRequest.url = request.url.raw;
+        tcRequest.name = name;
+        tcRequest.url = request.url?.raw;
+        // console.log("import reqname: ", name, tcRequest.url);
         tcRequest.method = request.method;
         if (request.header) {
             tcRequest.headers = [];
