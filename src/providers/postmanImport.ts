@@ -1,6 +1,6 @@
 import DataProvider from "./dataProvider";
 import { CollectionImportModel } from "../models/collectionImportModel";
-import { KeyValue, OAuth2, RequestBody, RequestImportModel } from "../models/requestImportModel";
+import { BodyType, KeyValue, OAuth2, RequestBody, RequestImportModel } from "../models/requestImportModel";
 import { EnvironmentImportModel } from "..";
 
 export default class PostmanImport implements DataProvider {
@@ -99,6 +99,8 @@ export default class PostmanImport implements DataProvider {
             else if (request.body.mode === "raw") {
                 if (request.body.options) {
                     tcRequest.body.type = request.body.options.raw.language;
+                } else {
+                    tcRequest.body.type = this.getBodyTypeFromHeader(tcRequest.headers);
                 }
 
                 tcRequest.body.raw = request.body.raw;
@@ -156,5 +158,28 @@ export default class PostmanImport implements DataProvider {
         }
 
         return tcRequest
+    }
+
+    private getBodyTypeFromHeader(headers: KeyValue[]) {
+        let type: BodyType = "json"; // set default value
+
+        var element = headers.find(s => s.name?.toLowerCase() == "content-type");
+        if (!element) {
+            return type;
+        }
+
+        var value = element.value;
+        if (value.includes("text/plain")) {
+            type = "text"
+        }
+        else if (value.includes("xml")) {
+            type = "xml";
+        }
+        else if (value.includes("json")) {
+            type = "json";
+        }
+
+
+        return type;
     }
 }

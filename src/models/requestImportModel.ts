@@ -26,8 +26,10 @@ export type OAuth2 = {
     state: string
 }
 
+export type BodyType = "none" | "text" | "json" | "xml" | "formdata" | "formencoded" | "graphql";
+
 export type RequestBody = {
-    type: "none" | "text" | "json" | "xml" | "formdata" | "formencoded" | "graphql",
+    type: BodyType,
     raw: string | undefined,
     form: KeyValue[] | undefined,
     graphql: GraphqlBody | undefined
