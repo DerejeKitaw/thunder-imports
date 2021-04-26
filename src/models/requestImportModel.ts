@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export type KeyValue = {
     name: string,
     value: string
@@ -43,6 +45,9 @@ export type Authentication = {
 }
 
 export class RequestImportModel {
+    public containerId: string = "";
+    public _id: string;
+    public sortNum: number = 0;
     public method: string = "";
     public url: string = "";
     public name: string = "";
@@ -50,4 +55,8 @@ export class RequestImportModel {
     public body: RequestBody | undefined;
     public auth: Authentication | undefined;
     public tests: any[] | undefined;
+
+    public constructor() {
+        this._id = uuidv4();
+    }
 }

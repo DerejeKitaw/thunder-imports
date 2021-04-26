@@ -15,6 +15,7 @@ export default class ThunderImport implements DataProvider {
         var data = new CollectionImportModel();
         data.name = json.collectionName;
         data.requests = json.requests;
+        data.folders = json.folders || [];
         return data;
     }
 
