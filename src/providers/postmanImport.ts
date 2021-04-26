@@ -1,5 +1,5 @@
 import DataProvider from "./dataProvider";
-import { CollectionImportModel } from "../models/collectionImportModel";
+import { CollectionImportModel, FolderImportModel } from "../models/collectionImportModel";
 import { BodyType, KeyValue, OAuth2, RequestBody, RequestImportModel } from "../models/requestImportModel";
 import { EnvironmentImportModel } from "..";
 
@@ -38,38 +38,42 @@ export default class PostmanImport implements DataProvider {
     }
 
     importCollection(json: any): CollectionImportModel {
-        var data = new CollectionImportModel();
+        let data = new CollectionImportModel();
         data.name = json.info.name;
 
-        var tcRequests: RequestImportModel[] = [];
-        this.parseData(json, tcRequests);
+        let tcFolders: FolderImportModel[] = [];
+        let tcRequests: RequestImportModel[] = [];
+        this.parseData(json, tcRequests, tcFolders);
 
+        data.folders = tcFolders;
         data.requests = tcRequests;
         return data;
     }
 
-    private parseData(jsonData: any, tcRequests: RequestImportModel[]) {
+    private parseData(jsonData: any, tcRequests: RequestImportModel[], tcFolders: FolderImportModel[], containerId: string = "") {
         let item = jsonData.item;
         if (item && item.length > 0) {
             // console.log("postman collection: ", item)
 
             for (let colItem of item) {
-                if (colItem.request) {
-                    var req = this.parseRequest(colItem);
+                if (colItem.item) {
+                    let folderItem = new FolderImportModel(colItem.name, containerId);
+                    tcFolders.push(folderItem);
+                    this.parseData(colItem, tcRequests, tcFolders, folderItem._id);
+                }
+                else if (colItem.request) {
+                    var req = this.parseRequest(colItem, containerId);
                     tcRequests.push(req);
-
-                } else if (colItem.item) {
-
-                    this.parseData(colItem, tcRequests);
                 }
             }
         }
     }
 
-    private parseRequest(requestItem: any) {
+    private parseRequest(requestItem: any, containerId: string) {
         let { name, request } = requestItem;
         // console.log("postman req: ", requestItem)
         let tcRequest = new RequestImportModel();
+        tcRequest.containerId = containerId;
 
         tcRequest.name = name;
         tcRequest.url = request.url?.raw;
