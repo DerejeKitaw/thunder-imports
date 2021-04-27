@@ -141,15 +141,15 @@ export default class PostmanImport implements DataProvider {
                 var oauth: OAuth2 | undefined = {} as OAuth2;
                 let oauth2Data = request.auth.oauth2;
 
-                oauth.grantType = oauth2Data.find((st: { key: string; }) => st.key == "grant_type").value;
-                oauth.accessToken = oauth2Data.find((st: { key: string; }) => st.key == "accessToken").value;
-                oauth.state = oauth2Data.find((st: { key: string; }) => st.key == "state").value;
-                oauth.scope = oauth2Data.find((st: { key: string; }) => st.key == "scope").value;
+                oauth.grantType = oauth2Data.find((st: { key: string; }) => st.key == "grant_type")?.value;
+                oauth.accessToken = oauth2Data.find((st: { key: string; }) => st.key == "accessToken")?.value;
+                oauth.state = oauth2Data.find((st: { key: string; }) => st.key == "state")?.value;
+                oauth.scope = oauth2Data.find((st: { key: string; }) => st.key == "scope")?.value;
 
-                oauth.clientId = oauth2Data.find((st: { key: string; }) => st.key == "clientId").value;
-                oauth.clientSecret = oauth2Data.find((st: { key: string; }) => st.key == "clientSecret").value;
-                oauth.tokenUrl = oauth2Data.find((st: { key: string; }) => st.key == "accessTokenUrl").value;
-                oauth.authUrl = oauth2Data.find((st: { key: string; }) => st.key == "authUrl").value;
+                oauth.clientId = oauth2Data.find((st: { key: string; }) => st.key == "clientId")?.value;
+                oauth.clientSecret = oauth2Data.find((st: { key: string; }) => st.key == "clientSecret")?.value;
+                oauth.tokenUrl = oauth2Data.find((st: { key: string; }) => st.key == "accessTokenUrl")?.value;
+                oauth.authUrl = oauth2Data.find((st: { key: string; }) => st.key == "authUrl")?.value;
 
                 if (oauth.grantType !== "authorization_code" && oauth.grantType !== "client_credentials") {
                     oauth = undefined;
