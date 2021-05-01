@@ -34,6 +34,7 @@ export type RequestBody = {
     type: BodyType,
     raw: string | undefined,
     form: KeyValue[] | undefined,
+    files: string[] | undefined,
     graphql: GraphqlBody | undefined
 }
 
